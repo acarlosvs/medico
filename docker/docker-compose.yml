@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+    mysql:
+        image: mysql:8.0
+        container_name: 'mysql-imedicina'
+        labels:
+            service_docker: mysql-imedicina
+        ports:
+            - '3307:3306'
+        environment:
+            MYSQL_DATABASE: 'imedicina'
+            MYSQL_USER: 'user'
+            MYSQL_PASSWORD: 'password'
+            MYSQL_ROOT_PASSWORD: 'password'
+        volumes:
+            - ../.docker/mysql/dbdata:/var/lib/mysql
+        restart: always
+
+    activemq:
+        image: rmohr/activemq:5.16.2-alpine
+        container_name: 'activemq-imedicina'
+        labels:
+            service_docker: activemq-imedicina        
+        ports:
+            - "61616:61616"
+            - "8161:8161"
